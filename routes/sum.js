@@ -20,28 +20,26 @@ function sumObject(arguments) {
     };
 }
 
-
-
-//routes
-
-router.get('/', function (req, res) {
-    if (req.query[firstArgName] && req.query[secondArgName]) {
-        if (isNumeric(req.query[firstArgName]) && isNumeric(req.query[secondArgName])) {
-            res.json(sumObject(req.query))
-        } else {
-            res.status(400).json({error: "Bad request, please check numbers"})
-        }
-    } else {
+router.get('/', function (req, res, next) {
+    if (!req.query[firstArgName] || !req.query[secondArgName]) {
         res.json({message: 'Please, specify first and second arguments for sum in the following forms: /sum/first\+second or /sum\?first={first}&second={second}'})
     }
-})
-
-router.get('/:first[\+]:second', function (req, res) {
-    if (isNumeric(req.params[firstArgName])&& isNumeric(req.params[secondArgName])) {
-        res.json(sumObject(req.params))
-    } else {
+    if (!isNumeric(req.query[firstArgName]) || !isNumeric(req.query[secondArgName])) {
         res.status(400).json({error: "Bad request, please check numbers"})
     }
+    next()
+}, function (req, res) {
+    res.json(sumObject(req.query))
+})
+
+
+router.get('/:first[\+]:second', function (req, res, next) {
+    if (!isNumeric(req.params[firstArgName]) || !isNumeric(req.params[secondArgName])) {
+        res.status(400).json({error: "Bad request, please check numbers"})
+    }
+    next()
+}, function (req, res) {
+    res.json(sumObject(req.params))
 })
 
 module.exports = router

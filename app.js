@@ -1,11 +1,11 @@
 const express = require('express')
 const sum = require('./routes/sum.js')
 const app = express()
-const port = 8081
+const config = require('./config')
 
 app.use('/sum', sum)
 
-app.listen(port, function () {
-  console.log('Application listening on port ' + port)
+app.listen(config.get('port'), function () {
+  console.log('Application listening on port ' + config.get('port'))
 })
 

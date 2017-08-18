@@ -1,5 +1,6 @@
 {
   "port" : 8081,
   "firstArgumentName" : "first",
-  "secondArgumentName" : "second"
+  "secondArgumentName" : "second",
+  "apiUrl" : "https://s3-us-west-2.amazonaws.com/litvinok/search.json"
 }

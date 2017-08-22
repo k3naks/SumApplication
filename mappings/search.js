@@ -4,6 +4,8 @@
 
 const {BaseDTO, BaseListDTO, fields} = require('dtox')
 const TabDto = require('./tab')
+const DocumentDto = require('./document')
+const BoxDto = require('./box')
 
 const SEARCH_MAPPING = {
     Engine: fields.string(),
@@ -13,7 +15,9 @@ const SEARCH_MAPPING = {
     CurrentPage: fields.number(),
     DocumentsPerPage: fields.number(),
     DocumentsThisPage: fields.number(),
-    Tabs: fields.listWithDTO(TabDto)
+    Tabs: fields.listWithDTO(TabDto),
+    Documents: fields.listWithDTO(DocumentDto),
+    Boxes: fields.listWithDTO(BoxDto)
 };
 
 
